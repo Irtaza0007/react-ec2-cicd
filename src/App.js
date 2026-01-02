@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div style={{ padding: 40 }}>
-      <h1>React + Express on AWS EC2 🚀 CI/CD Test</h1>
+      <h1>One React + Express on AWS EC2 🚀 CI/CD Test</h1>
       <p>{msg}</p>
     </div>
   );
