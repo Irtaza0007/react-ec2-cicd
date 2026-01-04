@@ -29,11 +29,17 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
+      - name: Add EC2 to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
       - name: Deploy build to EC2
         run: |
-          rsync -avz --delete build/ ubuntu@${{ secrets.EC2_HOST }}:/var/www/html/
+          rsync -avz --delete \
+          -e "ssh -o StrictHostKeyChecking=no" \
+          build/ ubuntu@${{ secrets.EC2_HOST }}:/var/www/html/
 
       - name: Restart Nginx
         run: |
-          ssh ubuntu@${{ secrets.EC2_HOST }} "sudo systemctl restart nginx"
-
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "sudo systemctl restart nginx"
