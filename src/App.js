@@ -4,7 +4,7 @@ function App() {
   const [msg, setMsg] = useState("Loading...");
 
   useEffect(() => {
-    fetch("http://44.220.93.222:3001/api/hello")
+    fetch("http://100.50.125.214:3001/api/hello")
       .then((res) => {
         if (!res.ok) {
           throw new Error("API response not OK");
